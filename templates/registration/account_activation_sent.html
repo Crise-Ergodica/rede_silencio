@@ -1,0 +1,17 @@
+{% extends "machina/board_base.html" %}
+{% load i18n %}
+
+{% block sub_title %}Confirmação Necessária{% endblock sub_title %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center">
+        <div class="alert alert-info bg-dark text-white border-info shadow">
+            <h3 class="alert-heading">Verifique seu E-mail</h3>
+            <p>Um link de conformação foi enviado para o endereço cadastrado.</p>
+            <hr>
+            <p class="mb-0">Clique no link para ativar sua conta e acessar o fórum.</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

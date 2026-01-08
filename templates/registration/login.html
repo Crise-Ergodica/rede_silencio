@@ -1,0 +1,43 @@
+{% extends "machina/board_base.html" %}
+{% load i18n %}
+
+{% block sub_title %}{% trans "Login" %}{% endblock sub_title %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6">
+    <div class="card bg-dark text-white border-secondary shadow-lg">
+      <div class="card-header border-secondary text-center">
+        <h2 class="my-0 font-monospace">LOGIN</h2>
+      </div>
+      <div class="card-body p-4">
+        <form method="post">
+          {% csrf_token %}
+          
+          {% if form.errors %}
+            <div class="alert alert-danger">
+              <p>Usuário ou senha incorretos. Tente novamente.</p>
+            </div>
+          {% endif %}
+
+          <div class="mb-3">
+             <label class="form-label" for="id_username">Usuário</label>
+             <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" class="form-control bg-secondary text-white border-0">
+          </div>
+          
+          <div class="mb-3">
+             <label class="form-label" for="id_password">Senha</label>
+             <input type="password" name="password" autocomplete="current-password" required id="id_password" class="form-control bg-secondary text-white border-0">
+          </div>
+
+          <button type="submit" class="btn btn-outline-light w-100 mt-3">ENTRAR</button>
+        </form>
+        <div class="mt-4 text-center">
+             <p class="mb-1"><a href="{% url 'signup' %}" class="text-info text-decoration-none">Criar Nova Conta</a></p>
+             <p><a href="{% url 'password_reset' %}" class="text-secondary small text-decoration-none">Esqueci minha senha</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

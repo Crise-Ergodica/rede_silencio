@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'machina.apps.forum_tracking',
     'machina.apps.forum_member',
     'machina.apps.forum_permission',
+    'core',
 ]
 
 # --- MIDDLEWARE ---
@@ -150,3 +151,23 @@ HAYSTACK_CONNECTIONS = {
 MACHINA_FORUM_NAME = "Rede Silêncio"
 MACHINA_FORUM_DESCRIPTION = "Fórum de discussão da Rede Silêncio"
 MACHINA_DEFAULT_PAGE_SIZE = 20
+
+# --- CONFIGURAÇÕES DO CORE / AUTH ---
+LOGIN_REDIRECT_URL = '/forum/'
+LOGOUT_REDIRECT_URL = '/forum/'
+
+# Para desenvolvimento, imprime o email no terminal
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Permissões padrão para novos usuários (ex: podem postar)
+MACHINA_DEFAULT_AUTHENTICATED_USER_PERMISSIONS = [
+    'can_see_forum',
+    'can_read_forum',
+    'can_start_new_topics',
+    'can_reply_to_topics',
+    'can_edit_own_posts',
+    'can_post_without_approval',
+    'can_create_polls',
+    'can_vote_in_polls',
+    'can_download_file',
+]

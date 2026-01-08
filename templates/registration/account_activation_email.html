@@ -1,0 +1,10 @@
+{% autoescape off %}
+Olá {{ user.username }},
+
+Obrigado por se registrar no Fórum Rede Silêncio.
+Para completar seu cadastro e proteger nosso espaço, por favor clique no link abaixo para validar seu e-mail:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Se você não se cadastrou, ignore este e-mail.
+{% endautoescape %}
