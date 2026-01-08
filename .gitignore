@@ -1,0 +1,28 @@
+# --- Django ---
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# --- Ambientes Virtuais ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Mídia e Estáticos Coletados ---
+media/
+staticfiles/
+
+# --- Editor de Texto (VS Code) ---
+.vscode/
+
+# --- Sistema Operacional ---
+.DS_Store
+Thumbs.db
+
+# --- Segredos (Para o futuro) ---
+.env
