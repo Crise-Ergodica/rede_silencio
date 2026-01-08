@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="#"><img src="logo.svg" alt="Rede Silêncio Logo" width="500"></a>
+  <a href="#"><img src="logo.svg" alt="Rede Silêncio Logo" width="1000"></a>
   <br>
   <i>... a conexão foi perdida ...</i>
   <br>
