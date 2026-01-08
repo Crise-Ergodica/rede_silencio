@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        {% if messages %}
+        <div class="box">
+            <div class="box-header">:: Mensagens ::</div>
+            <div class="box-content">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {# Machina Breadcrumbs would go here if we wanted them #}
+
+        {% block breadcrumb %}{% endblock breadcrumb %}
+
+        {% block sub_title %}{% endblock sub_title %}
+
+        {# Main Content #}
+        {% block content_inner %}{% endblock content_inner %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,140 @@
+{% extends "machina/board_base.html" %}
+{% load i18n %}
+{% load mptt_tags %}
+{% load forum_tags %}
+{% load forum_conversation_tags %}
+
+{% block sub_title %}{% trans "Fórum" %}{% endblock sub_title %}
+
+{% block content_inner %}
+
+<div class="marquee-container" style="margin-bottom: 20px;">
+    <div class="marquee-content">
+        +++ BEM-VINDO À REDE SILÊNCIO +++ A REALIDADE É UMA ILUSÃO +++ NÃO ESQUEÇA DE ATUALIZAR SEU PERFIL +++ ESCUTE O
+        VAZIO +++
+    </div>
+</div>
+
+<div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+
+    {# --- SIDEBAR --- #}
+    <aside style="width: 250px; flex-shrink: 0; flex-grow: 1; min-width: 250px;">
+
+        <div class="box">
+            <div class="box-header">:: Usuário ::</div>
+            <div class="box-content text-center">
+                {% if user.is_authenticated %}
+                <div class="avatar-container mb-2">
+                    {% include "partials/avatar.html" with profile=user.forum_profile show_placeholder=True %}
+                </div>
+                <p style="margin: 5px 0;"><strong>{{ user.forum_profile.display_name }}</strong></p>
+                <p style="font-size: 10px; color: #666;">Status: <span class="text-neon">Online</span></p>
+
+                <hr style="border: 0; border-top: 1px dashed #333; margin: 10px 0;">
+
+                <a href="{% url 'forum_member:profile_update' pk=user.pk %}" class="btn"
+                    style="width: 100%; display:block; margin-bottom:5px;">[ Editar Perfil ]</a>
+                <a href="{% url 'logout' %}" class="btn" style="width: 100%; display:block;">[ Sair ]</a>
+                {% else %}
+                <img src="https://placehold.co/200x200/111/8b0000?text=No+Photo"
+                    style="width: 100%; border: 2px dashed #fff; margin-bottom: 10px; filter: contrast(120%);">
+                <p style="margin: 5px 0;"><strong>Visitante</strong></p>
+                <hr style="border: 0; border-top: 1px dashed #333; margin: 10px 0;">
+                <a href="{% url 'login' %}" class="btn" style="width: 100%; display:block; margin-bottom:5px;">[ Login
+                    ]</a>
+                <a href="{% url 'signup' %}" class="btn" style="width: 100%; display:block;">[ Registrar ]</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">:: Badges ::</div>
+            <div class="box-content text-center"
+                style="display: flex; flex-wrap: wrap; gap: 2px; justify-content: center;">
+                <img src="https://placehold.co/88x31/300/fff?text=HTML" style="border: 1px solid #333;">
+                <img src="https://placehold.co/88x31/000/fff?text=SAD" style="border: 1px solid #333;">
+                <img src="https://placehold.co/88x31/500/fff?text=VAMPIRE" style="border: 1px solid #333;">
+                <img src="https://placehold.co/88x31/222/fff?text=ANTI-IE" style="border: 1px solid #333;">
+            </div>
+        </div>
+
+    </aside>
+
+    {# --- MAIN CONTENT --- #}
+    <main style="flex-grow: 1; flex-basis: 0; min-width: 300px;">
+
+        <div class="box">
+            <div class="box-header">
+                <span>:: Status do Sistema ::</span>
+                <span>[ - ] [ x ]</span>
+            </div>
+            <div class="box-content">
+                <h2 style="margin-top: 0; color: #fff; border-bottom: 1px dashed #444; padding-bottom: 5px;">
+                    /root/forum/welcome
+                </h2>
+                <p style="text-align: justify;">
+                    Você entrou na <b>Rede Silêncio</b>. <br>
+                    Este é um espaço para discussões longe da luz do sol. Mantenha o respeito e a melancolia.
+                </p>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">:: Diretórios (Fóruns) ::</div>
+            <div class="box-content" style="padding: 0;">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60%">Fórum</th>
+                            <th class="text-center">Tópicos</th>
+                            <th class="text-center">Posts</th>
+                            <th class="text-right">Último Post</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% recursetree forums %}
+                        {% if node.is_category %}
+                        <tr>
+                            <td colspan="4"
+                                style="background-color: #1a0000; font-weight:bold; text-transform:uppercase;">
+                                {{ node.name }}
+                            </td>
+                        </tr>
+                        {{ children }}
+                        {% else %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'forum:forum' node.slug node.pk %}"
+                                    style="font-weight: bold; font-size: 12px;">[+] {{ node.name }}</a><br>
+                                <span style="font-size: 10px; color: #777;">{{ node.description.rendered }}</span>
+                            </td>
+                            <td class="text-center text-neon">{{ node.topics_count }}</td>
+                            <td class="text-center text-neon">{{ node.posts_count }}</td>
+                            <td class="text-right">
+                                {% if node.last_post %}
+                                <span style="color: #555;">{{ node.last_post.created|date:"d/m/Y H:i" }}</span><br>
+                                por
+                                {% if node.last_post.poster %}
+                                <a href="{% url 'forum_member:profile' node.last_post.poster_id %}">{{
+                                    node.last_post.poster.forum_profile.display_name }}</a>
+                                {% else %}
+                                {{ node.last_post.username }}
+                                {% endif %}
+                                {% else %}
+                                -
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endrecursetree %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </main>
+
+</div>
+{% endblock content_inner %}

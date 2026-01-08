@@ -56,6 +56,9 @@ MIDDLEWARE = [
     
     # Middleware do Machina (Permissões de acesso)
     'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
+    
+    # Custom Force Login
+    'core.middleware.AuthRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
